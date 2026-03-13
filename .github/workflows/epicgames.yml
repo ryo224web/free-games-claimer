@@ -1,0 +1,22 @@
+name: Epic Games Free Claimer
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 1 * * 5" # 毎週金曜日 01:00 UTC（日本時間10:00）
+
+jobs:
+  epic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - run: node epic-games.js
+        env:
+          EG_EMAIL: ${{ secrets.EG_EMAIL }}
+          EG_PASSWORD: ${{ secrets.EG_PASSWORD }}
+          EG_OTPKEY: ${{ secrets.EG_OTPKEY }}
+          CHROMIUM_FLAGS: "--no-sandbox"
