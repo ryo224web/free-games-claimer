@@ -3,7 +3,7 @@ name: Epic Games Free Claimer
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 1 * * 5" # 毎週金曜日 01:00 UTC（日本時間10:00）
+    - cron: "0 1 * * 5"
 
 jobs:
   epic:
@@ -19,4 +19,6 @@ jobs:
           EG_EMAIL: ${{ secrets.EG_EMAIL }}
           EG_PASSWORD: ${{ secrets.EG_PASSWORD }}
           EG_OTPKEY: ${{ secrets.EG_OTPKEY }}
-          CHROMIUM_FLAGS: "--no-sandbox"
+          CHROMIUM_FLAGS: "--no-sandbox --disable-setuid-sandbox --disable-dev-shm-usage"
+          PWDEBUG: "0"
+          EG_TIMEOUT: "60000"
